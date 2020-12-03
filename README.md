@@ -8,6 +8,7 @@ Si quieres ver la solución de cada día en directo y con explicación de los pr
 Ricardo Ander-Egg Aguilar – [@ricardoanderegg](https://twitter.com/ricardoanderegg) –
 
 - [ricardoanderegg.com](http://ricardoanderegg.com/)
+- [YouTube](https://www.youtube.com/channel/UCKOMsMLnypZSJdKHGS2c39g)
 - [github.com/polyrand](https://github.com/polyrand/)
 - [linkedin.com/in/ricardoanderegg](http://linkedin.com/in/ricardoanderegg)
 
