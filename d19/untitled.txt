@@ -1,0 +1,169 @@
+rules_tokenized[0]
+
+rules_tokenized[135]
+
+def f(num):
+    
+    rule = rules_tokenized[num]
+    
+    res = []
+    
+    for token in rule:
+        if isinstance(token, int):
+            res.append(f(token))
+        elif token == "|":
+            res.append("|")
+        elif token in {"a", "b"}:
+            res.append(token)
+            
+    return "".join(res)
+
+rules_tokenized[104], f(104)
+
+rules_tokenized[96], f(96)
+
+rules_tokenized[16], f(16)
+
+rules_tokenized[43], f(43)
+
+rules_tokenized[132]
+
+def splitter(l, char = "|"):
+
+    seen = False
+    h1 = []
+    h2 = []
+
+    for x in l:
+        if x == char:
+            seen = True
+            continue
+
+        if x and not seen:
+            h1.append(x)
+        else:
+            h2.append(x)
+
+    if h2:
+        return [h1, h2]
+    else:
+        return h1
+
+splitter(rules_tokenized[135], "|")
+
+splitted = splitter(rule, "|")
+    
+    if len(splitted) == 2:
+        # with |
+        return f"{parse_rule(splitted[0])}|{parse_rule(splitted[1])}"
+    
+
+def parse_rule(rule_x):
+
+    rule = rules_tokenized[rule_x]
+    
+    splitted = splitter(rule)
+    
+    if len(splitted) == 2:
+        return "(" + parse_rule + ")"
+
+    res = []
+
+    for idx, token in enumerate(rule):
+
+        if isinstance(token, int):
+            res.append(f"{parse_rule(token)}")
+
+        elif token == "|":
+            res.append("|")
+
+        elif token in {"a", "b"}:
+            return f"({token})"
+
+        else:
+            raise ValueError(f"Wrong token found '{token}'")
+
+    res = "".join(res)
+    
+    if "|" in res:
+        return f"({res.split('|')[0]})|({res.split('|')[1]})"
+    
+    else: 
+        return res    # f"({''.join(res)})"  # {''.join(h1)})|({''.join(h2)}
+
+"asdasd".split("|")
+
+parse_rule2(8)
+
+splitter([1,2, 2,4], "|")
+
+
+
+"{1," + str(max_msg_len) + "}"
+
+"{1," + str(max_msg_len) + "}"
+
+x_times = "{" + ",".join([str(e) for e in range(1, max_msg_len + 1)]) + "}" + "?"
+
+x_times = "{1," + str(max_msg_len+1) + "}" + "?"
+
+x_times = "*"
+
+x_times
+
+def build_times(n, comma=None):
+    
+    c = "," if comma else ""
+
+    return "{" + str(n) + c + "}"
+
+def parse_rule2(rule_num, i):
+
+    rule = rules_tokenized[rule_num]
+
+    res = []
+    res2 = []
+
+    seen = False
+
+    times = None
+
+    for idx, token in enumerate(rule):
+
+        if isinstance(token, int):
+
+            if token == rule_num:
+                
+                if token == 8:
+                    times = build_times(i+1, True)
+                    
+                elif token == 11:
+                    times = build_times(i)
+
+                continue
+
+            if seen is False:
+                res.append(parse_rule2(token, i))
+            else:
+                res2.append(parse_rule2(token, i))
+
+        elif token == "|":
+            seen = True
+
+        elif token in {"a", "b"}:
+            return token
+
+        else:
+            raise ValueError(f"Wrong token found '{token}'")
+
+    if res2:
+
+        result = "(" + "(" + "".join(res) + ")" + "|" + "(" + "".join(res2) + ")" + ")"
+
+    else:
+        result = f"({''.join(res)})"
+
+    if times:
+        return result + times
+    else:
+        return result
